@@ -1,0 +1,13 @@
+--- fixture/panel.py	2026-10-03 04:30:33
++++ runs/20261003-045716/gemini/panel.py	2026-10-03 04:58:13
+@@ -8,7 +8,9 @@
+ 
+ def decide(votes):
+     """Return the panel's grade for `votes`, or None when the panel has no verdict."""
++    votes = list(votes)
+     counted = [v for v in votes if v is not None]
+     if not counted:
+         return None
+-    return Counter(counted).most_common(1)[0][0]
++    winner, count = Counter(counted).most_common(1)[0]
++    return winner if count > len(votes) / 2 else None

@@ -1,0 +1,14 @@
+--- fixture/panel.py	2026-10-03 04:30:33
++++ runs/20261003-045716/grok/panel.py	2026-10-03 04:57:48
+@@ -11,4 +11,10 @@
+     counted = [v for v in votes if v is not None]
+     if not counted:
+         return None
+-    return Counter(counted).most_common(1)[0][0]
++    ranking = Counter(counted).most_common()
++    winner, top_count = ranking[0]
++    # Equal top counts have no majority. most_common breaks that tie by first-seen
++    # order, so the same votes used to grade differently when judges were reordered.
++    if any(count == top_count for _, count in ranking[1:]):
++        return None
++    return winner

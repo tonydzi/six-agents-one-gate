@@ -1,0 +1,15 @@
+--- fixture/panel.py	2026-10-03 04:30:33
++++ runs/20261003-045716/glm/panel.py	2026-10-03 04:57:45
+@@ -11,4 +11,11 @@
+     counted = [v for v in votes if v is not None]
+     if not counted:
+         return None
+-    return Counter(counted).most_common(1)[0][0]
++    counts = Counter(counted)
++    top = max(counts.values())
++    winners = [grade for grade, count in counts.items() if count == top]
++    if len(winners) > 1:
++        # Tie between grades: the panel has no verdict. Unlike
++        # Counter.most_common(), this cannot depend on judge order.
++        return None
++    return winners[0]

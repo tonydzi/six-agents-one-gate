@@ -1,0 +1,11 @@
+--- fixture/panel.py	2026-10-03 04:30:33
++++ runs/20261003-045716/mistral/panel.py	2026-10-03 04:57:29
+@@ -8,7 +8,7 @@
+ 
+ def decide(votes):
+     """Return the panel's grade for `votes`, or None when the panel has no verdict."""
+-    counted = [v for v in votes if v is not None]
++    counted = sorted(v for v in votes if v is not None)
+     if not counted:
+         return None
+     return Counter(counted).most_common(1)[0][0]

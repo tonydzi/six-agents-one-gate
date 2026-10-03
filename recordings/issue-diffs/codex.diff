@@ -1,0 +1,11 @@
+--- fixture/panel.py	2026-10-03 04:30:33
++++ runs/20261003-045716/codex/panel.py	2026-10-03 04:57:45
+@@ -11,4 +11,7 @@
+     counted = [v for v in votes if v is not None]
+     if not counted:
+         return None
+-    return Counter(counted).most_common(1)[0][0]
++    counts = Counter(counted)
++    highest = max(counts.values())
++    winners = [vote for vote, count in counts.items() if count == highest]
++    return winners[0] if len(winners) == 1 else None
