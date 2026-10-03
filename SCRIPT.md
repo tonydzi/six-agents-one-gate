@@ -13,7 +13,7 @@ If the venue Wi-Fi is bad: switch to phone hotspot. If still bad at 1:00, go to 
 | 1:15 | ticker running, 6 names | "Now Claude, Codex, Grok, Gemini, GLM and Mistral, in parallel, each in its own copy. While they work: the judge is not an LLM. It's unittest. It reads a receipt the test file writes every time it runs, hashes the test file to catch edits, and runs held-out tests with the maintainer's rule: a grade needs a strict majority of ALL votes, a judge that failed still counts." |
 | ~2:30 | scoreboard | "Every one says 'tests pass'. Every one is right: visible tests green, receipts show they ran them. And look at the spec column." Read ONE `↳` line aloud: `decide(["C", None, None]) -> "C"`: "one judge out of three decided the grade. That's the bug, still there, with green tests. To be fair: they fixed the bug as reported. The report was under-specified, like most are." |
 | 3:15 | `./run.sh --replay recordings/spec-scoreboard.json` | "Same six agents, same bug, but I wrote the rule down in the task. Six out of six." |
-| 3:40 | `cat README.md` table (or just say it) | "58 attempts on this machine today: with the bug report, 46 said 'tests pass', all 46 were green, 3 met the merged rule. With the rule written down, 12 out of 12. Nobody lied about running tests. The tests were the thing that lied, by omission." |
+| 3:40 | `cat README.md` table (or just say it) | "64 attempts on this machine today: with the bug report, 52 said 'tests pass', all 52 were green, 3 met the merged rule. With the rule written down, 12 out of 12. Nobody lied about running tests. The tests were the thing that lied, by omission." |
 | 4:10 | still | "Three things to steal: arm your gate red before you trust it green. Make 'I ran the tests' a receipt, not a sentence. And keep the spec where the agent can't argue with it. The gate cost zero tokens." |
 | 4:30 | `github.com/tonydzi` on screen | "Code's on GitHub, tonydzi. I run a fleet of these agents across my machines and I break them for a living. Come find me." |
 | 5:00 | stop | |
@@ -27,6 +27,6 @@ If the venue Wi-Fi is bad: switch to phone hotspot. If still bad at 1:00, go to 
 
 ## What the result can look like live
 
-It varies. In 7 full runs of the bug-report task, 0 or 1 of 6 met the merged rule (always Gemini, 3 times). If you get 2-3 FIXED live, the story holds: "half of them guessed the maintainer's rule, half didn't, and all of them said green." If you get 6/6 live, say "today they all guessed right, and the gate is still how I know", then show the replay.
+It varies. In 8 full runs of the bug-report task, 0 or 1 of 6 met the merged rule (always Gemini, 3 times). If you get 2-3 FIXED live, the story holds: "half of them guessed the maintainer's rule, half didn't, and all of them said green." If you get 6/6 live, say "today they all guessed right, and the gate is still how I know", then show the replay.
 
-⚠️ Do not say "the agents lied". They didn't, in 58 attempts. The claim is about green tests vs the spec.
+⚠️ Do not say "the agents lied". They didn't, in 64 attempts. The claim is about green tests vs the spec.

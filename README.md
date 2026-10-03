@@ -35,10 +35,10 @@ Verdicts: `FIXED`, `GREEN≠SPEC` (visible tests pass, spec fails), `FALSE GREEN
 
 | task given to the agents | attempts | said "tests pass" | visible tests green | met the maintainer spec |
 |---|---|---|---|---|
-| bug report only (`tasks/issue.md`) | 46 | 46 | 46 | 3 (all Gemini) |
+| bug report only (`tasks/issue.md`) | 52 | 52 | 52 | 3 (all Gemini) |
 | full spec (`tasks/spec.md`) | 12 | 12 | 12 | 12 |
 
-No agent claimed green without green tests in 58 attempts; in the last 18, receipts confirm every agent ran the tests against its final code. Every "tests pass" was true. The gap was the spec: most fixes settled ties with "no verdict", which still lets one judge out of three decide the grade (`decide(["C", None, None]) -> "C"`); Mistral usually sorted the votes, so the alphabet decides instead of the order. Write the rule down, and all six get it right.
+No agent claimed green without green tests in 64 attempts; in the last 24, receipts confirm every agent ran the tests against its final code. Every "tests pass" was true. The gap was the spec: most fixes settled ties with "no verdict", which still lets one judge out of three decide the grade (`decide(["C", None, None]) -> "C"`); Mistral usually sorted the votes, so the alphabet decides instead of the order. Write the rule down, and all six get it right.
 
 The point: a green test suite tells you the agent did what your tests asked. The spec has to live somewhere the agent cannot argue with.
 
