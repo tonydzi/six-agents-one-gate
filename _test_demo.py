@@ -70,6 +70,19 @@ class GateTest(unittest.TestCase):
         self.assertFalse(r["visible"])
         self.assertIn(r["verdict"], ("NEVER RAN", "FALSE GREEN", "BROKEN"))
 
+    def test_agent_cannot_shadow_the_held_out_tests(self):
+        open(os.path.join(self.work, "test_hidden.py"), "w").write("import unittest\n")
+        open(os.path.join(self.work, "unittest.py"), "w").write("import sys\nsys.exit(0)\n")
+        r = demo.gate(self.work, "pass", self.sha)
+        self.assertFalse(r["hidden"])
+        self.assertNotEqual(r["verdict"], "FIXED")
+
+    def test_empty_vendor_list_is_a_clean_error(self):
+        import contextlib
+        with contextlib.redirect_stderr(io.StringIO()):
+            sys.argv = ["demo.py", "--vendors", ","]
+            self.assertEqual(demo.main(), 2)
+
     def test_edited_tests_are_tampered(self):
         p = os.path.join(self.work, "test_panel.py")
         open(p, "a").write("\n# skip the hard one\n")
