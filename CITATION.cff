@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use six-agents-one-gate in research or software, please cite it as below."
+title: "six-agents-one-gate"
+type: software
+authors:
+  - family-names: Dziatkovskii
+    given-names: Anton
+    orcid: "https://orcid.org/0000-0001-7408-3054"
+    affiliation: "Palo Alto AI Research Lab"
+repository-code: "https://github.com/tonydzi/six-agents-one-gate"
+url: "https://github.com/tonydzi/six-agents-one-gate"
+license: MIT
+date-released: "2026-10-03"
+keywords:
+  - coding-agents
+  - llm-evaluation
+  - test-gate
+  - specification
+  - inspect-ai
+abstract: >-
+  A 5-minute live demo: one real bug (a re-creation of the judge-order bug
+  fixed in UK AISI inspect_ai PR #4769) goes to six coding agents in parallel,
+  and a deterministic zero-token unittest gate decides who fixed it. The gate
+  must be red on the broken code first, checks test receipts, flags edited
+  tests and runs held-out spec tests. Measured 2026-10-03: from the bug report
+  alone 52 of 52 attempts had green visible tests and 3 met the maintainer
+  spec; with the full spec, 12 of 12.
