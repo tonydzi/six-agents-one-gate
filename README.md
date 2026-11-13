@@ -1,4 +1,57 @@
-# Six agents, one bug, one gate
+# six-agents-one-gate
+
+A live demo: the same bug goes to six AI coding agents, and a plain test script (no AI) decides which ones really fixed it.
+
+**Who it's for:** people who let AI agents write code and want proof the fix is right, not just a green checkmark.
+**What you get:** a scoreboard with one verdict per agent (`FIXED`, `GREEN≠SPEC`, `FALSE GREEN`, `DOWN` and more). In our run, all agents said "tests pass", but only 3 of 52 attempts met the maintainer's real rule.
+
+## Quick start
+1. Install Python 3.9 or newer.
+2. Run: `git clone https://github.com/tonydzi/six-agents-one-gate` then `cd six-agents-one-gate`.
+3. Replay a recorded run (free, no accounts needed): `python3 demo.py --replay recordings/issue-scoreboard.json`
+
+**Done when:** you see a table with six agents and a last line like `6/6 said "tests pass" ... 1/6 meet the maintainer spec`.
+
+> Want an AI agent to do it for you? Paste this to Claude Code / Codex / Cursor:
+> "Read the 'For AI agents' section of https://github.com/tonydzi/six-agents-one-gate and set it up for me."
+
+## For AI agents
+
+### Preconditions
+- Python 3.9+ (standard library only). `run.sh` is a POSIX shell wrapper for `python3 demo.py`; on Windows call `python demo.py` directly.
+- Replay mode needs nothing else: no network, no agent CLIs, no accounts.
+- A live run needs the agent CLIs the human has logged in (Claude Code, Codex, Grok, Gemini or Antigravity CLI, GLM, Mistral Vibe). A missing CLI shows as `DOWN` and never stops the run.
+- Ask the human: replay or live run, and which vendors (`--vendors`). A live run spends their quota.
+
+### Reproduce
+```bash
+git clone https://github.com/tonydzi/six-agents-one-gate
+cd six-agents-one-gate
+python3 demo.py --replay recordings/issue-scoreboard.json   # recorded run, bug report as a user files it
+python3 demo.py --replay recordings/spec-scoreboard.json    # recorded run, full maintainer spec
+```
+Live run (only with the human's go-ahead): `./run.sh`, or `./run.sh --vendors claude,codex --timeout 120`, `./run.sh --task spec`, `./run.sh --down grok`. Results land in `runs/<timestamp>/`.
+
+### Configure
+No config files. Flags (from `demo.py` and `run.sh`): `--task spec`, `--vendors a,b`, `--timeout N`, `--down <vendor>`, `--replay <path>`. Which vendors to include comes from the human.
+
+### Verify
+```bash
+python3 demo.py --replay recordings/issue-scoreboard.json
+```
+Expected: exit code 0 and, as the last line, `6/6 said "tests pass" · 6/6 visible tests green · 1/6 meet the maintainer spec · 0 green claims not earned · gate: 0 tokens`. (Run here: matched.) The replay re-runs the local gate for real ("armed" check), so it also proves the tests are red on the broken code.
+`python3 _test_demo.py` runs the gate's own tests; on a Windows machine it did not finish within 2 minutes here, so it is not confirmed there. Run it on macOS or Linux.
+
+### Uninstall / rollback
+Delete the cloned folder. A leftover `runs/.arm` folder from an interrupted run (Windows) can be deleted before retrying; `runs/` is local output only.
+
+### Rules for the agent
+- Do not run a live demo without the human's go-ahead: it launches up to six agents on their accounts.
+- Do not edit `fixture/test_panel.py` or `gate/test_hidden.py`; an edited test file is scored `TAMPERED` and the held-out spec must stay hidden from agents.
+- Report the verdicts as printed. Do not upgrade `GREEN≠SPEC` to a pass.
+- Never put keys or tokens into the run folders.
+
+## Details
 
 A 5-minute live demo (running code, no slides) for AI Tinkerers SF.
 
@@ -31,7 +84,7 @@ To be fair to the agents: sorting the votes or returning "no verdict" on a tie D
 
 Verdicts: `FIXED`, `GREEN≠SPEC` (visible tests pass, spec fails), `FALSE GREEN`, `NEVER RAN`, `TAMPERED`, `BROKEN`, `DOWN`.
 
-## What we measured (MacPro192, 2026-10-03)
+## What we measured (one Mac, 2026-10-03)
 
 | task given to the agents | attempts | said "tests pass" | visible tests green | met the maintainer spec |
 |---|---|---|---|---|
