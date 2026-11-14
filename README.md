@@ -10,7 +10,7 @@ A live demo: the same bug goes to six AI coding agents, and a plain test script 
 2. Run: `git clone https://github.com/tonydzi/six-agents-one-gate` then `cd six-agents-one-gate`.
 3. Replay a recorded run (free, no accounts needed): `python3 demo.py --replay recordings/issue-scoreboard.json`
 
-**Done when:** you see a table with six agents and a last line like `6/6 said "tests pass" ... 1/6 meet the maintainer spec`.
+**Done when:** you see a table with six agents and a last line like `6/6 said "tests pass" ... 1/6 meet the maintainer spec`. That looks like a failure but is the intended result: in this recorded run five agents are marked `GREEN≠SPEC` (their tests passed, the hidden maintainer rule did not) and one is `FIXED`. The replay runs in under a minute on Windows.
 
 > Want an AI agent to do it for you? Paste this to Claude Code / Codex / Cursor:
 > "Read the 'For AI agents' section of https://github.com/tonydzi/six-agents-one-gate and set it up for me."
@@ -30,7 +30,7 @@ cd six-agents-one-gate
 python3 demo.py --replay recordings/issue-scoreboard.json   # recorded run, bug report as a user files it
 python3 demo.py --replay recordings/spec-scoreboard.json    # recorded run, full maintainer spec
 ```
-Live run (only with the human's go-ahead): `./run.sh`, or `./run.sh --vendors claude,codex --timeout 120`, `./run.sh --task spec`, `./run.sh --down grok`. Results land in `runs/<timestamp>/`.
+Live run (only with the human's go-ahead): `./run.sh`, or `./run.sh --vendors claude,codex --timeout 120`, `./run.sh --task spec`, `./run.sh --down grok`. On Windows use `python demo.py` with the same flags instead of `./run.sh`. Results land in `runs/<timestamp>/`.
 
 ### Configure
 No config files. Flags (from `demo.py` and `run.sh`): `--task spec`, `--vendors a,b`, `--timeout N`, `--down <vendor>`, `--replay <path>`. Which vendors to include comes from the human.
